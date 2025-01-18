@@ -42,19 +42,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-// class MyHomePage extends StatelessWidget {
-//   const MyHomePage({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text('CoinCap'),
-//       ),
-//       body: Center(
-//         child: Text('Hello Shubh'),
-//       ),
-//     );
-//   }
-// }

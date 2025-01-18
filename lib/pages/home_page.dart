@@ -34,12 +34,13 @@ class _HomePageState extends State<HomePage> {
           Map _data = jsonDecode(_snapshot.data.toString());
           num _usdPrice = _data["market_data"]["current_price"]["usd"];
           num _change24h = _data["market_data"]["price_change_percentage_24h"];
-
+          Map _exchangeRates = _data["market_data"]["current_price"];
+          // print(_exchangeRates);
           return Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              _coinImageWidget(_data["image"]["large"]),
+              _coinImageWidget(_data["image"]["large"],_exchangeRates),
               _currentPriceWidget(_usdPrice),
               _percentageChangeWidget(_change24h),
               _descriptionCardWidget(_data["description"]["en"]),
@@ -75,14 +76,14 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _coinImageWidget(String _imgURL) {
+  Widget _coinImageWidget(String _imgURL, Map _exchangeRates) {
     return GestureDetector(
       onDoubleTap: () {
         Navigator.push(
           context,
           MaterialPageRoute(
             builder: (BuildContext _context) {
-              return DetailsPage();
+              return DetailsPage(rates: _exchangeRates);
             },
           ),
         );
@@ -180,26 +181,3 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-// FutureBuilder(
-      // future: _http!.get("/coins/bitcoin"),
-      // builder: (BuildContext _context, AsyncSnapshot _snapshot){
-      //   if (_snapshot.hasData){
-      //     Map _data = jsonDecode(_snapshot.data.toString());
-      //     num _usdPrice = _data["market_data"]["current_price"]["usd"];
-      //     return Text(_usdPrice.toString());
-      //   }else{
-      //     return const Center(child: CircularProgressIndicator(color: Colors.white),);
-      //   }
-      // });
